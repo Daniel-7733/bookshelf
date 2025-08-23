@@ -7,5 +7,8 @@ app: Flask = Flask(__name__)
 def index() -> str:
     return render_template("index.html")
 
+# Add a function to get the input from index.html
+
+
 if __name__ == "__main__":
     app.run(debug=True)
