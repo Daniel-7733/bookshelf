@@ -1,28 +1,51 @@
 <!DOCTYPE html>
     <html lang="en">
         <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
             <title>Bookshelf</title>
         </head>
+
         <body>
+
             <h1>Welcome to Bookshelf</h1>
+
             <h2>My Books</h2>
+            <!--- Here I try to print the items from list of Authors name + book title --->
             <ol>
-                <li>The Clash of Civilizations and the Remaking of World Order by Samuel P. Huntington</li>
-                <li>Our Man in Havana Graham Greene</li>
+                {% for book in book_list %}
+                    <li>
+                        <strong>{{ book.book_name }}</strong> by {{ book.author_name }}
+                        <p>{{ book.reader_description }}</p>
+                    </li>
+                {% else %}
+                    <li>No books yet.</li>
+                {% endfor %}
             </ol>
-            <!---- Adding input ---->
-            <form action="book" method="Post">
-                <p>Add you book</p>
-                <input type="text" name="book_input">
-                <input type="submit" value="Submit" id="Submit">
+
+            <!-- Input section -->
+            <form method="POST" action="{{ url_for('index') }}">
+                <p>Add your book</p>
+                <input type="text" name="book_input" placeholder="Book title" />
+                <button type="submit">Submit</button>
             </form>
 
-            <h1>Recent book</h1>
-            <h2>The Clash of Civilizations by Samuel P. Huntington</h2>
-            <h3>Description</h3>
-            <p>Not a bad book, but a shallow book about most of the things</p>
+            <!-- Flash messages (if using flash in Flask) -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <ul>
+                        {% for category, message in messages %}
+                            <li class="{{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+
+            <!--- This section will display 3 recent added books (Title, Name, Description) --->
+            <h2>Recent book</h2>
+            <h3>The Clash of Civilizations by Samuel P. Huntington</h3>
+            <h4>Description</h4>
+            <p>Not a bad book, but a shallow book about most of the things.</p>
 
         </body>
-    </html>
+</html>
