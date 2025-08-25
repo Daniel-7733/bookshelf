@@ -18,25 +18,33 @@ books: list[dict[str, str]] = [
         "author_name": "George Orwell",
         "book_name": "1984",
         "reader_description": "A dark dystopian vision of the future, still relevant today."
+    },
+    {
+        "author_name": "Daniel",
+        "book_name": "The book Of Daniel",
+        "reader_description": "A revolutionary book and surrealistic."
     }
 ]
 
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
-        title = (request.form.get("book_input") or "").strip()
-        if not title:
-            flash("Please enter a book title.", "error")
+        title: str = (request.form.get("book_input") or "").strip()
+        author: str = (request.form.get("author_input") or "").strip()
+        description: str = (request.form.get("description_input") or "").strip()
+
+        if not title or not author or not description:
+            flash("Please fill in all fields.", "error")
         else:
             books.append({
-                "author_name": "Unknown",
+                "author_name": author,
                 "book_name": title,
-                "reader_description": "No description yet."
+                "reader_description": description
             })
-            flash(f"Your book '{title}' has been added!", "success")
+            flash(f'Your book "{title}" has been added!', 'success')
         return redirect(url_for("index"))
 
-    return render_template("index.html", book_list=books)
+    return render_template("index.html", book_list=books[::-1]) # book_list is reverse here to get 3 recent item in the list
 
 if __name__ == "__main__":
     app.run(debug=True)

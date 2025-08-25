@@ -27,10 +27,12 @@
             <form method="POST" action="{{ url_for('index') }}">
                 <p>Add your book</p>
                 <input type="text" name="book_input" placeholder="Book title" />
+                <input type="text" name="author_input" placeholder="Author name">
+                <input type="text" name="description_input" placeholder="description holder">
                 <button type="submit">Submit</button>
             </form>
 
-            <!-- Flash messages (if using flash in Flask) -->
+            <!-- Flash messages -->
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     <ul>
@@ -40,12 +42,14 @@
                     </ul>
                 {% endif %}
             {% endwith %}
+            <br>
 
             <!--- This section will display 3 recent added books (Title, Name, Description) --->
-            <h2>Recent book</h2>
-            <h3>The Clash of Civilizations by Samuel P. Huntington</h3>
-            <h4>Description</h4>
-            <p>Not a bad book, but a shallow book about most of the things.</p>
-
+                {% for book in book_list[:3] %}
+                    <strong>{{ book.book_name }}</strong> by {{ book.author_name }}
+                    <p>{{ book.reader_description }}</p>
+                {% else %}
+                    No books yet.
+                {% endfor %}
         </body>
 </html>
