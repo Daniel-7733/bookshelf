@@ -1,7 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
+from sqlite3 import Connection, Cursor, connect
+
 
 app: Flask = Flask(__name__)
 app.config["SECRET_KEY"] = "dev-secret"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///book.db"
 
 books: list[dict[str, str]] = [
     {
@@ -27,7 +30,7 @@ books: list[dict[str, str]] = [
 ]
 
 @app.route("/", methods=["GET", "POST"])
-def index():
+def index(): # I might need to separate this function
     if request.method == "POST":
         title: str = (request.form.get("book_input") or "").strip()
         author: str = (request.form.get("author_input") or "").strip()
@@ -43,8 +46,28 @@ def index():
             })
             flash(f'Your book "{title}" has been added!', 'success')
         return redirect(url_for("index"))
+    # book_list is reverse here because I want get 3 recent item in the list in the html.
+    return render_template("index.html", book_list=books[::-1])
 
-    return render_template("index.html", book_list=books[::-1]) # book_list is reverse here to get 3 recent item in the list
+
+# This function will add data to the book.db
+def add_book_to_db(book: dict[str, str]) -> None:
+    conn: Connection = connect("book.db")
+    cursor: Cursor = conn.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS books (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            author_name TEXT NOT NULL,
+            book_name TEXT NOT NULL,
+            reader_description TEXT NOT NULL
+        )
+    """)
+    cursor.execute("""
+        INSERT INTO books (author_name, book_name, reader_description)
+        VALUES (?, ?, ?)
+    """, (book["author_name"], book["book_name"], book["reader_description"]))
+    conn.commit()
+    conn.close()
 
 if __name__ == "__main__":
     app.run(debug=True)
