@@ -7,12 +7,57 @@ body {
 
 h1 {
     color: #444;
+    text-align: center;
+}
+
+h2 {
+    color: #555;
+    margin-top: 20px;
+}
+
+#recent-books {
+    color: #555;
+    text-align: center;
+    margin-top: 20px;
+    background-color: #fff;          /* white background */
+    border: 1px solid #ccc;          /* light border */
+    border-radius: 8px;              /* rounded corners */
+    padding: 15px;                   /* space inside */
+    margin-bottom: 15px;             /* space between boxes */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);  /* light shadow */
 }
 
 p {
     color: #333;
     line-height: 1.5;
 }
+
+#intro {
+    font-style: italic;
+    color: #666;
+    border: 1px solid #0056b3;
+}
+
+.book-box {
+  background-color: #fff;          /* white background */
+  border: 1px solid #ccc;          /* light border */
+  border-radius: 8px;              /* rounded corners */
+  padding: 15px;                   /* space inside */
+  margin-bottom: 15px;             /* space between boxes */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);  /* light shadow */
+}
+
+.book-box strong {
+  display: block;                  /* title on its own line */
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.book-box .intro {
+  color: #555;
+  margin: 0;
+}
+
 
 button {
     background-color: #007bff;

@@ -46,11 +46,14 @@
             <br>
 
             <!--- This section will display 3 recent added books (Title, Name, Description) --->
+            <h2 id="recent-books">Recent Books</h2>
                 {% for book in book_list[:3] %}
-                    <strong>{{ book.book_name }}</strong> by {{ book.author_name }}
-                    <p>{{ book.reader_description }}</p>
+                    <div class="book-box">
+                        <strong>{{ book.book_name }}</strong> by {{ book.author_name }}
+                        <p class="intro">{{ book.reader_description }}</p>
+                    </div>
                 {% else %}
-                    No books yet.
+                    <p>No books yet.</p>
                 {% endfor %}
         </body>
 </html>
