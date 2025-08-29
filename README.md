@@ -15,6 +15,7 @@ website/
 │  └─ index.html
 └─ static/
    └─ css/
+   └─ images/
 ```
 
 ## 🚀 Quick Start
