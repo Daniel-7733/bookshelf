@@ -30,7 +30,11 @@ books: list[dict[str, str]] = [
 ]
 
 @app.route("/", methods=["GET", "POST"])
-def index(): # I might need to separate this function
+def index():
+    return render_template("index.html", book_list=books[::-1]) # List is reverse here
+
+@app.route("/add", methods=["GET", "POST"])
+def add_book():
     if request.method == "POST":
         title: str = (request.form.get("book_input") or "").strip()
         author: str = (request.form.get("author_input") or "").strip()
@@ -46,8 +50,8 @@ def index(): # I might need to separate this function
             })
             flash(f'Your book "{title}" has been added!', 'success')
         return redirect(url_for("index"))
-    # book_list is reverse here because I want get 3 recent item in the list in the html.
-    return render_template("index.html", book_list=books[::-1])
+    return render_template("add.html", book_list=books)
+
 
 
 # This function will add data to the book.db

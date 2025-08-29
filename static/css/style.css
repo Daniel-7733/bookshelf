@@ -57,33 +57,3 @@ p {
     color: #555;
     margin: 0;
 }
-
-
-/* From here will go to different css page: add.css */
-
-.book-box-input, button {
-    margin-bottom: 20px;   /* more space */
-    margin-bottom: 5px;    /* less space */
-    font-size: 16px;       /* larger text */
-    text-align: center; /* center the text */
-    display: block;          /* make them block-level */
-    width: 220px;            /* pick a fixed width */
-    margin: 8px auto;        /* <-- centers horizontally */
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;  /* padding doesn’t increase width */
-}
-
-#add-book {
-    font-size: 20px;
-    margin: 10px 0;
-    text-align: center;
-    color: #333;
-}
-
-button:hover {
-    background-color: #0056b3; /* Change the color to darker blue when the mouse goes on the button */
-    transform: scale(1.05);    /* slightly enlarge */
-    transition: 0.2s;          /* smooth animation */
-}

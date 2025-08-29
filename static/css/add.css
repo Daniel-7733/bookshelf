@@ -1,0 +1,41 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4; /* light gray background #f4f4f4 */
+}
+
+h1 {
+    color: #444;
+    text-align: center;
+}
+
+
+.book-box-input, button {
+    margin-bottom: 20px;   /* more space */
+    margin-bottom: 5px;    /* less space */
+    font-size: 16px;       /* larger text */
+    text-align: center; /* center the text */
+    display: block;          /* make them block-level */
+    width: 220px;            /* pick a fixed width */
+    margin: 8px auto;        /* <-- centers horizontally */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;  /* padding doesn’t increase width */
+}
+
+#add-book {
+  display: block;
+  width: 220px;
+  margin: 10px auto;  /* center the element itself */
+  text-align: center; /* (optional) centers the label text */
+  color: #333;
+}
+
+
+button:hover {
+    background-color: #0056b3; /* Change the color to darker blue when the mouse goes on the button */
+    transform: scale(1.05);    /* slightly enlarge */
+    transition: 0.2s;          /* smooth animation */
+}
