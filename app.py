@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request #, redirect, url_for, flash
 from sqlite3 import Connection, Cursor, connect
 
 
@@ -29,9 +29,9 @@ books: list[dict[str, str]] = [
     }
 ]
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["GET"])
 def index():
-    return render_template("index.html", book_list=books[::-1]) # List is reverse here
+    return render_template("index.html", book_list=books[::-1])
 
 @app.route("/add", methods=["GET", "POST"])
 def add_book():
@@ -41,16 +41,17 @@ def add_book():
         description: str = (request.form.get("description_input") or "").strip()
 
         if not title or not author or not description:
-            flash("Please fill in all fields.", "error")
+            msg: tuple[str, str] = ("error", "Please fill in all fields.")
+            return render_template("add.html", message=msg)
         else:
-            books.append({
-                "author_name": author,
-                "book_name": title,
-                "reader_description": description
-            })
-            flash(f'Your book "{title}" has been added!', 'success')
-        return redirect(url_for("index"))
-    return render_template("add.html", book_list=books)
+            book: dict[str, str] = {"author_name": author, "book_name": title, "reader_description": description}
+            books.append(book)
+            # optionally persist:
+            # add_book_to_db(book)
+            data: dict[str, str] = {"title": title, "author": author, "description": description}
+            return render_template("add.html", added=data)
+
+    return render_template("add.html")
 
 
 

@@ -6,17 +6,33 @@
         <title>Document</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/add.css') }}">
     </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>Add a New Book</h1>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1>Add a New Book</h1>
+            </div>
+
+            <!-- Here we have input elements for adding a book -->
+            <form id="add-book-form" method="POST" action="{{ url_for('add_book') }}">
+                <input type="text" name="book_input"  id="book-title" class="book-box-input" placeholder="Book Title" required>
+                <input type="text" name="author_input" id="book-author" class="book-box-input" placeholder="Author" required>
+                <textarea name="description_input" id="book-description" class="book-box-input" placeholder="Description" required></textarea>
+                <button type="submit" id="add-book">Add Your Book</button>
+            </form>
+
+            <!-- Here we have the information display (Book name, Author, Description) that we add above -->
+            <div class="added-books">
+                {% if message %}
+                    <div class="alert {{ message[0] }}">{{ message[1] }}</div>
+                {% endif %}
+
+                {% if added %}
+                    <div class="book-box">
+                        <strong>{{ added.title }}</strong> by {{ added.author }}
+                        <p>{{ added.description }}</p>
+                    </div>
+                {% endif %}
+            </div>
         </div>
-        <form id="add-book-form">
-            <input type="text" id="book-title" class="book-box-input" placeholder="Book Title" required>
-            <input type="text" id="book-author" class="book-box-input" placeholder="Author" required>
-            <textarea id="book-description" class="book-box-input" placeholder="Description" required></textarea>
-            <button type="submit" id="add-book">Add Your Book</button>
-        </form>
-    </div>
     </body>
 </html>
