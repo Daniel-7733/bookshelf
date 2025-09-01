@@ -1,37 +1,25 @@
-from flask import Flask, render_template, request #, redirect, url_for, flash
-from sqlite3 import Connection, Cursor, connect
+from flask import Flask, render_template, request, flash, redirect, url_for
+from models import Book
+from db import db
 
 
 app: Flask = Flask(__name__)
 app.config["SECRET_KEY"] = "dev-secret"
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///book.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///instance/book.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-books: list[dict[str, str]] = [
-    {
-        "author_name": "Samuel P. Huntington",
-        "book_name": "The Clash of Civilizations and the Remaking of World Order",
-        "reader_description": "Not a bad book, but a shallow book about most of the things."
-    },
-    {
-        "author_name": "Graham Greene",
-        "book_name": "Our Man in Havana",
-        "reader_description": "A witty and satirical spy novel, light but insightful."
-    },
-    {
-        "author_name": "George Orwell",
-        "book_name": "1984",
-        "reader_description": "A dark dystopian vision of the future, still relevant today."
-    },
-    {
-        "author_name": "Daniel",
-        "book_name": "The book Of Daniel",
-        "reader_description": "A revolutionary book and surrealistic."
-    }
-]
+# initialize db with this app
+db.init_app(app)
 
-@app.route("/", methods=["GET"])
+with app.app_context():
+    db.create_all()
+
+
+@app.route("/")
 def index():
-    return render_template("index.html", book_list=books[::-1])
+    books: list[Book] = Book.query.order_by(Book.id.desc()).all()
+    return render_template("index.html", book_list=books)
+
 
 @app.route("/add", methods=["GET", "POST"])
 def add_book():
@@ -41,38 +29,20 @@ def add_book():
         description: str = (request.form.get("description_input") or "").strip()
 
         if not title or not author or not description:
-            msg: tuple[str, str] = ("error", "Please fill in all fields.")
-            return render_template("add.html", message=msg)
+            flash("Please fill in all fields.", "error")
         else:
-            book: dict[str, str] = {"author_name": author, "book_name": title, "reader_description": description}
-            books.append(book)
-            # optionally persist:
-            # add_book_to_db(book)
-            data: dict[str, str] = {"title": title, "author": author, "description": description}
-            return render_template("add.html", added=data)
+            new_book: Book = Book(
+                author_name=author,
+                book_name=title,
+                reader_description=description
+            )
+            db.session.add(new_book)
+            db.session.commit()
+            flash(f'Book "{title}" has been added!', "success")
+
+        return redirect(url_for("add_book"))
 
     return render_template("add.html")
-
-
-
-# This function will add data to the book.db
-def add_book_to_db(book: dict[str, str]) -> None:
-    conn: Connection = connect("book.db")
-    cursor: Cursor = conn.cursor()
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS books (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            author_name TEXT NOT NULL,
-            book_name TEXT NOT NULL,
-            reader_description TEXT NOT NULL
-        )
-    """)
-    cursor.execute("""
-        INSERT INTO books (author_name, book_name, reader_description)
-        VALUES (?, ?, ?)
-    """, (book["author_name"], book["book_name"], book["reader_description"]))
-    conn.commit()
-    conn.close()
 
 if __name__ == "__main__":
     app.run(debug=True)

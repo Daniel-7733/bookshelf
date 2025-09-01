@@ -11,6 +11,9 @@ A tiny Flask web app to list books and practice templates/static files. Great st
 ```
 website/
 ├─ app.py
+├─ db.py
+├─ models.py
+│
 ├─ templates/
 │  └─ index.html
 └─ static/
