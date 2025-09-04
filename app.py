@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
 from models import Book
 from db import db
+import os
 
 
 app: Flask = Flask(__name__)
 app.config["SECRET_KEY"] = "dev-secret"
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///instance/book.db"
+db_path = os.path.join(app.instance_path, "book.db") # I just make sure that my path does exist
+app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # initialize db with this app
