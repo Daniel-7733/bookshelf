@@ -4,10 +4,13 @@ from db import db
 import os
 
 
-app: Flask = Flask(__name__)
+app: Flask = Flask(__name__, instance_relative_config=True) # 1) instance_relative_config=True lets us store book.db in ./instance
 app.config["SECRET_KEY"] = "dev-secret"
-db_path = os.path.join(app.instance_path, "book.db") # I just make sure that my path does exist
+
+os.makedirs(app.instance_path, exist_ok=True) # 2) Ensure the instance folder exists (important!)
+db_path: str = os.path.join(app.instance_path, "book.db") # 3) Build an absolute path to instance/book.db (works on Windows)
 app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}"
+
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # initialize db with this app
