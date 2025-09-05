@@ -8,7 +8,31 @@
         </head>
 
         <body>
-            <!-- I should add an book image for a box in top of page -->
+
+            <!-- Adding a bar on top to have home page and other page option to choose -->
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="templates/index.html">BookShelf</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="templates/index.html">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">My page</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Add your book</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- I should add a book image for a box in top of page -->
             <h1>Welcome to Bookshelf</h1>
 
             <h2>My Books</h2>
@@ -23,18 +47,6 @@
                     <li>No books yet.</li>
                 {% endfor %}
             </ol>
-             
-            <!-- Flash messages -->
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    <ul>
-                        {% for category, message in messages %}
-                            <li class="{{ category }}">{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            {% endwith %}
-            <br>
 
             <!--- This section will display 3 recent added books (Title, Name, Description) --->
             <h2 id="recent-books">Recent Books</h2>
