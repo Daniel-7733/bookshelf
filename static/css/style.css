@@ -5,6 +5,44 @@ body {
     background-color: #f4f4f4; /* light gray background #f4f4f4 */
 }
 
+
+/* Here try to make nav bar more clear and beautiful*/
+.navbar ul {
+    list-style-type: none;
+    background-color: #6e6666;
+    padding: 0px;
+    margin: 0px;
+    overflow: hidden;
+    border-radius: 8px; /* rounded corners */
+}
+
+.navbar ul li {
+    float: left;
+}
+
+.navbar ul li a {
+    display: block;
+    padding: 14px 16px;
+    color: white;
+    text-align: center;
+    text-decoration: none; /* remove underline */
+}
+
+.navbar ul li a:hover {
+    background-color: #575757;
+}
+
+.navbar-brand { /* This one target the Booksheft title */
+    font-size: 40px;
+    font-weight: bold;
+    color: rgb(23, 20, 20);
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* nav bar finished*/
+
+
 h1 {
     color: #444;
     text-align: center;
