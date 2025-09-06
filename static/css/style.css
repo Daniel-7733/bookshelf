@@ -12,7 +12,7 @@ body {
     background-color: #6e6666;
     padding: 0px;
     margin: 0px;
-    overflow: hidden;
+    overflow: hidden; /* clear floats and write the items horizontally not vertically */
     border-radius: 8px; /* rounded corners */
 }
 
