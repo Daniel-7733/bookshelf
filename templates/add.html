@@ -1,51 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>My Bookshelf</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/add.css') }}">
-    </head>
-    <body>
-        <div class="container">
-            <div class="header">
-                <h1>Add a New Book</h1>
-            </div>
+{% extends "base.html" %}
 
-            <!-- Here we have input elements for adding a book -->
-            <form id="add-book-form" method="POST" action="{{ url_for('add_book') }}">
-                <input type="text" name="book_input"  id="book-title" class="book-box-input" placeholder="Book Title" required>
-                <input type="text" name="author_input" id="book-author" class="book-box-input" placeholder="Author" required>
-                <textarea name="description_input" id="book-description" class="book-box-input" placeholder="Description" required></textarea>
-                <button type="submit" id="add-book">Add Your Book</button>
-            </form>
+{% block title %}Bookshelf · Add Book{% endblock %}
 
-            <!-- Here we have the information display (Book name, Author, Description) that we add above -->
-            <div class="added-books">
-                {% if message %}
-                    <div class="alert {{ message[0] }}">{{ message[1] }}</div>
-                {% endif %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/add.css') }}">
+{% endblock %}
 
-                {% if added %}
-                    <div class="book-box">
-                        <strong>{{ added.title }}</strong> by {{ added.author }}
-                        <p>{{ added.description }}</p>
-                    </div>
-                {% endif %}
-            </div>
+{% block content %}
+  <div class="header">
+    <h1>Add a New Book</h1>
+  </div>
 
-            <!-- Flash messages; this section will give a report (Just book's name) of what book we saved -->
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    <ul>
-                        {% for category, message in messages %}
-                            <li class="{{ category }}">{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            {% endwith %}
-            <br>
-        </div>
-    </body>
-</html>
+  <form id="add-book-form" method="POST" action="{{ url_for('add_book') }}">
+    <input type="text" name="book_input"  id="book-title" class="book-box-input" placeholder="Book Title" required>
+    <input type="text" name="author_input" id="book-author" class="book-box-input" placeholder="Author" required>
+    <textarea name="description_input" id="book-description" class="book-box-input" placeholder="Description" required></textarea>
+    <button type="submit" id="add-book">Add Your Book</button>
+  </form>
+
+  <!-- Page-specific messages you’re setting via render_template -->
+  <div class="added-books">
+    {% if message %}
+      <div class="alert {{ message[0] }}">{{ message[1] }}</div>
+    {% endif %}
+
+    {% if added %}
+      <div class="book-box">
+        <strong>{{ added.title }}</strong> by {{ added.author }}
+        <p>{{ added.description }}</p>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

@@ -1,12 +1,45 @@
 <!DOCTYPE html>
     <html lang="en">
-        <head>
-            <meta charset="UTF-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-            <title>{% block title %}Bookshelf{% endblock %}</title>
-            <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-        </head>
-        <body>
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>{% block title %}Bookshelf{% endblock %}</title>
 
-        </body>
+        <!-- Site-wide CSS -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+        <!-- Page-specific CSS goes here -->
+        {% block extra_css %}{% endblock %}
+      </head>
+      <body>
+
+        <!-- Top nav lives in the base so every page gets it -->
+        <nav class="navbar">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('index') }}">BookShelf</a>
+            <ul class="navbar-nav">
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="#">My page</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('add_book') }}">Add your book</a></li>
+            </ul>
+          </div>
+        </nav>
+
+        <!-- Optional global flash renderer (works for any page) -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="flash-list">
+              {% for category, message in messages %}
+                <li class="flash {{ category }}">{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        <!-- Each page injects its content here -->
+        <main class="container">
+          {% block content %}{% endblock %}
+        </main>
+
+      </body>
     </html>
