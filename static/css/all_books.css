@@ -1,0 +1,24 @@
+a {
+  color: blue;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: darkblue;
+}
+
+.delete-link {
+  display: inline-block;
+  padding: 5px 12px;
+  background-color: #e74c3c;  /* red */
+  color: white;
+  font-size: 14px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.delete-link:hover {
+  background-color: #c0392b;  /* darker red */
+}

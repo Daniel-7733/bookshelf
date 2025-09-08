@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for, Response
 from models import Book
 from db import db
 import os
@@ -21,13 +21,31 @@ with app.app_context():
 
 
 @app.route("/")
-def index():
+def index() -> str:
     books: list[Book] = Book.query.order_by(Book.id.desc()).all()
     return render_template("index.html", book_list=books)
 
 
+@app.route("/books")
+def all_books() -> str: # New route to display all books
+    books: list[Book] = Book.query.order_by(Book.id.desc()).all()
+    return render_template("all_books.html", book_list=books)
+
+
+@app.route('/delete/<int:book_id>', methods=['GET', 'POST'])
+def delete_book(book_id: int) -> Response | str:
+    book = Book.query.get_or_404(book_id)  # fetch by ID
+    if request.method == 'POST':
+        db.session.delete(book)
+        db.session.commit()
+        flash(f"Deleted {book.book_name}", "success")
+        return redirect(url_for('all_books'))
+    return render_template('delete.html', book=book)
+
+
+
 @app.route("/add", methods=["GET", "POST"])
-def add_book():
+def add_book() -> Response | str:
     if request.method == "POST":
         title: str = (request.form.get("book_input") or "").strip()
         author: str = (request.form.get("author_input") or "").strip()
@@ -48,6 +66,7 @@ def add_book():
         return redirect(url_for("add_book"))
 
     return render_template("add.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True)

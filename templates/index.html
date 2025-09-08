@@ -5,9 +5,10 @@
 {% block content %}
   <h1>Welcome to Bookshelf</h1>
 
+  <!-- Display six books in an ordered list -->
   <h2>My Books</h2>
   <ol>
-    {% for book in book_list %}
+    {% for book in book_list[:6] %}
       <li>
         <strong>{{ book.book_name }}</strong> by {{ book.author_name }}
         <p>{{ book.reader_description }}</p>
@@ -17,6 +18,7 @@
     {% endfor %}
   </ol>
 
+  <!-- Display 3 recent books on the bottom of page -->
   <h2 id="recent-books">Recent Books</h2>
   {% for book in book_list[:3] %}
     <div class="book-box">
