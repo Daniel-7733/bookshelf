@@ -34,7 +34,7 @@ def all_books() -> str: # New route to display all books
 
 @app.route('/delete/<int:book_id>', methods=['GET', 'POST'])
 def delete_book(book_id: int) -> Response | str:
-    book = Book.query.get_or_404(book_id)  # fetch by ID
+    book: Book = Book.query.get_or_404(book_id)  # fetch by ID
     if request.method == 'POST':
         db.session.delete(book)
         db.session.commit()

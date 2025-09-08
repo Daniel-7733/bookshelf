@@ -25,27 +25,3 @@ class User(db.Model):
 
     def check_password(self, password: str) -> bool:
         return check_password_hash(self.password_hash, password)
-
-
-# books: list[dict[str, str]] = [
-#     {
-#         "author_name": "Samuel P. Huntington",
-#         "book_name": "The Clash of Civilizations and the Remaking of World Order",
-#         "reader_description": "Not a bad book, but a shallow book about most of the things."
-#     },
-#     {
-#         "author_name": "Graham Greene",
-#         "book_name": "Our Man in Havana",
-#         "reader_description": "A witty and satirical spy novel, light but insightful."
-#     },
-#     {
-#         "author_name": "George Orwell",
-#         "book_name": "1984",
-#         "reader_description": "A dark dystopian vision of the future, still relevant today."
-#     },
-#     {
-#         "author_name": "Daniel",
-#         "book_name": "The book Of Daniel",
-#         "reader_description": "A revolutionary book and surrealistic."
-#     }
-# ]

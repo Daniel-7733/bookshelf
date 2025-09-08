@@ -32,7 +32,7 @@ body {
     background-color: #575757;
 }
 
-.navbar-brand { /* This one target the Booksheft title */
+.navbar-brand { /* This one target the Bookshelf title */
     font-size: 40px;
     font-weight: bold;
     color: rgb(23, 20, 20);
