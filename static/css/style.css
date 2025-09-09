@@ -10,7 +10,7 @@ body {
 .navbar ul {
     list-style-type: none;
     background-color: #6e6666;
-    padding: 0px;
+    padding: 0px; /* This one change the size of the nav bar from top to bottom */
     margin: 0px;
     overflow: hidden; /* clear floats and write the items horizontally not vertically */
     border-radius: 8px; /* rounded corners */
@@ -32,13 +32,14 @@ body {
     background-color: #575757;
 }
 
-.navbar-brand { /* This one target the Bookshelf title */
+/* Below line one target the Bookshelf title */
+/* .navbar-brand { 
     font-size: 40px;
     font-weight: bold;
     color: rgb(23, 20, 20);
     padding: 14px 16px;
     text-decoration: none;
-}
+} */
 
 /* nav bar finished*/
 

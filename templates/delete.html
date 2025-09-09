@@ -2,17 +2,22 @@
 
 {% block title %}Delete Book{% endblock %}
 
+{% block extra_css %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/delete.css') }}">
+{% endblock %}
+
 {% block content %}
   <h1>Delete Book</h1>
 
-  <p>
-    Are you sure you want to delete
-    <strong>{{ book.book_name }}</strong> by {{ book.author_name }}?
-  </p>
-  <!-- Input area for confirmation & deletion -->
-  <form method="POST">
+  <!-- Confirmation message -->
+  <form method="POST" class="delete-container">
     <input type="hidden" name="book_id" value="{{ book.id }}">
-    <button type="submit">Delete</button>
-    <a href="{{ url_for('all_books') }}">Cancel</a>
+    <p id="confirmation_message">
+      Are you sure you want to delete
+      <strong>{{ book.book_name }}</strong> by {{ book.author_name }}?
+    </p>
+    <button type="submit" id="delete_book">Delete</button>
+    <a href="{{ url_for('all_books') }}" class="cancel">Cancel</a>
   </form>
+
 {% endblock %}

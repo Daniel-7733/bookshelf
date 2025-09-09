@@ -31,15 +31,30 @@ def all_books() -> str: # New route to display all books
     books: list[Book] = Book.query.order_by(Book.id.desc()).all()
     return render_template("all_books.html", book_list=books)
 
+@app.route('/edit/<int:book_id>', methods=['GET', 'POST'])
+def edit_book(book_id: int) -> Response | str:
+    book: Book = Book.query.get_or_404(book_id)  # fetch by ID
+    if request.method == 'POST':
+        book.book_name = request.form.get("book_name", "").strip()
+        book.author_name = request.form.get("author_name", "").strip()
+        book.reader_description = request.form.get("reader_description", "").strip()
+        
+        db.session.commit()
+        flash(f"Updated {book.book_name}", "success")
+        return redirect(url_for('all_books'))
+    return render_template('edit.html', book=book)
+
 
 @app.route('/delete/<int:book_id>', methods=['GET', 'POST'])
 def delete_book(book_id: int) -> Response | str:
     book: Book = Book.query.get_or_404(book_id)  # fetch by ID
+
     if request.method == 'POST':
         db.session.delete(book)
         db.session.commit()
         flash(f"Deleted {book.book_name}", "success")
         return redirect(url_for('all_books'))
+
     return render_template('delete.html', book=book)
 
 
@@ -62,7 +77,6 @@ def add_book() -> Response | str:
             db.session.add(new_book)
             db.session.commit()
             flash(f'Book "{title}" has been added!', "success")
-
         return redirect(url_for("add_book"))
 
     return render_template("add.html")

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Bookshelf · Edit Book{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/edit.css') }}">
+{% endblock %}
+
+{% block content %}
+  <h1>Edit Book</h1>
+  <form method="POST">
+    <div>
+      <label for="book_name">Book Name</label>
+      <input type="text" id="book_name" name="book_name" value="{{ book.book_name }}" required>
+    </div>
+    <div>
+      <label for="author_name">Author Name</label>
+      <input type="text" id="author_name" name="author_name" value="{{ book.author_name }}" required>
+    </div>
+    <div>
+      <label for="reader_description">Reader Description</label>
+      <textarea id="reader_description" name="reader_description" required>{{ book.reader_description }}</textarea>
+    </div>
+    <button type="submit">Save Changes</button>
+  </form>
+{% endblock %}

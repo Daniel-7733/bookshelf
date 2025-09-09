@@ -1,0 +1,53 @@
+.delete-container {
+  display: flex;
+  flex-direction: column;   /* stack items vertically */
+  align-items: center;      /* center horizontally */
+  justify-content: center;  /* center vertically if container has height */
+  text-align: center;       /* center text inside */
+  margin-top: 40px;
+}
+
+#confirmation_message {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+
+button#delete_book {
+    margin-bottom: 20px;   /* more space */
+    margin-bottom: 5px;    /* less space */
+    font-size: 16px;       /* larger text */
+    text-align: center; /* center the text */
+    display: block;          /* make them block-level */
+    width: 220px;            /* pick a fixed width */
+    margin: 8px auto;        /* <-- centers horizontally */
+    padding: 10px 20px; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;  /* padding doesn’t increase width */
+}
+
+button:hover {
+  background-color: darkred;
+  transform: scale(1.05);
+  transition: 0.2s; 
+}
+
+
+a.cancel {
+    text-decoration: none;
+    margin-left: 10px;
+    font-size: 16px;
+    text-align: center;
+    display: inline-block;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;  /* padding doesn’t increase width */
+}
+
+a.cancel:hover {
+  background-color: lightgray;
+  transform: scale(1.05);
+  transition: 0.2s; 
+}
