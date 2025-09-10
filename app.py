@@ -38,7 +38,6 @@ def edit_book(book_id: int) -> Response | str:
         book.book_name = request.form.get("book_name", "").strip()
         book.author_name = request.form.get("author_name", "").strip()
         book.reader_description = request.form.get("reader_description", "").strip()
-        
         db.session.commit()
         flash(f"Updated {book.book_name}", "success")
         return redirect(url_for('all_books'))
@@ -54,9 +53,7 @@ def delete_book(book_id: int) -> Response | str:
         db.session.commit()
         flash(f"Deleted {book.book_name}", "success")
         return redirect(url_for('all_books'))
-
     return render_template('delete.html', book=book)
-
 
 
 @app.route("/add", methods=["GET", "POST"])

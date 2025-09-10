@@ -1,0 +1,73 @@
+/* Page layout */
+#edit-page {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  background: #f3f3f3; /* subtle page bg */
+}
+
+/* Card */
+.edit-form {
+  width: 80%;
+  max-width: 400px;
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  padding: 28px;
+}
+
+/* Title */
+.edit-form h1 {
+  text-align: center;
+  margin: 0 0 18px 0;
+  font-size: 28px;
+}
+
+/* Inputs */
+.form-group { margin-bottom: 16px; }
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  padding-left: 6px;
+}
+
+.edit-form input[type="text"],
+.edit-form textarea {
+  width: 80%;
+  padding: 10px 12px;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  outline: none;
+}
+.edit-form input[type="text"]:focus,
+.edit-form textarea:focus {
+  border-color: #5b8def;
+  box-shadow: 0 0 0 3px rgba(91,141,239,0.15);
+}
+
+/* Button */
+.btn-primary {
+  display: block;
+  width: 180px;
+  margin: 6px auto 0;
+  padding: 10px 14px;
+  border: 1px solid #cfd8ff;
+  border-radius: 8px;
+  background: #5b8def;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .05s ease, box-shadow .2s ease, background .2s ease;
+}
+.btn-primary:hover { background: #4a7ae0; box-shadow: 0 6px 16px rgba(91,141,239,0.35); }
+.btn-primary:active { transform: translateY(1px); }
+
+/* Mobile tweak */
+@media (max-width: 520px) {
+  .edit-form { padding: 20px; }
+  .edit-form h1 { font-size: 24px; }
+}

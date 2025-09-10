@@ -5,7 +5,7 @@
     text-align: center; /* center the text */
     display: block;          /* make them block-level */
     width: 220px;            /* pick a fixed width */
-    margin: 8px auto;        /* <-- centers horizontally */
+    margin: 8px auto;       /* <-- centers horizontally */
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
