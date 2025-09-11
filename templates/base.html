@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{% block title %}Bookshelf{% endblock %}</title>
 
+    <!-- Favicon: https://www.flaticon.com/free-icon/stack-of-books_5832416?term=book&page=1&position=3&origin=search&related_id=5832416-->
+    <link rel="icon" type="image/x-icon" href="static/images/stack-of-books.png"> <!-- Adding a favicon to my website tab header -->
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     {% block extra_css %}{% endblock %}
   </head>
