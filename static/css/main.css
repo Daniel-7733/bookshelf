@@ -96,3 +96,21 @@ p {
     color: #555;
     margin: 0;
 }
+
+.featured-book {
+  margin-bottom: 30px;
+  padding: 15px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.featured-card strong {
+  font-size: 20px;
+}
+
+.recent-books ol {
+  padding-left: 20px;
+}
+

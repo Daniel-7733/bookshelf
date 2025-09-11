@@ -5,27 +5,16 @@
 {% block content %}
   <h1>Welcome to Bookshelf</h1>
 
-  <!-- Display six books in an ordered list -->
-  <h2>My Books</h2>
-  <ol>
-    {% for book in book_list[:6] %}
-      <li>
-        <strong>{{ book.book_name }}</strong> by {{ book.author_name }}
-        <p>{{ book.reader_description }}</p>
-      </li>
-    {% else %}
-      <li>No books yet.</li>
-    {% endfor %}
-  </ol>
+  <!-- Featured random book -->
+  {% if random_book %}
+    <section class="featured-book">
+      <h2>Featured Pick</h2>
+      <div class="featured-card">
+        <strong>{{ random_book.book_name }}</strong> by {{ random_book.author_name }}
+        <p>{{ random_book.reader_description }}</p>
+      </div>
+    </section>
+  {% endif %}
 
-  <!-- Display 3 recent books on the bottom of page -->
-  <h2 id="recent-books">Recent Books</h2>
-  {% for book in book_list[:3] %}
-    <div class="book-box">
-      <strong>{{ book.book_name }}</strong> by {{ book.author_name }}
-      <p class="intro">{{ book.reader_description }}</p>
-    </div>
-  {% else %}
-    <p>No books yet.</p>
-  {% endfor %}
+  <!-- I will add login & sign in functionality here -->
 {% endblock %}

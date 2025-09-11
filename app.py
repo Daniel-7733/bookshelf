@@ -1,14 +1,15 @@
-from flask import Flask, render_template, request, flash, redirect, url_for, Response
+from flask import Flask, render_template, request, flash, redirect, url_for, Response 
+from os import path, makedirs
+from sqlalchemy import func
 from models import Book
 from db import db
-import os
 
 
 app: Flask = Flask(__name__, instance_relative_config=True) # 1) instance_relative_config=True lets us store book.db in ./instance
 app.config["SECRET_KEY"] = "dev-secret"
 
-os.makedirs(app.instance_path, exist_ok=True) # 2) Ensure the instance folder exists (important!)
-db_path: str = os.path.join(app.instance_path, "book.db") # 3) Build an absolute path to instance/book.db (works on Windows)
+makedirs(app.instance_path, exist_ok=True) # 2) Ensure the instance folder exists (important!)
+db_path: str = path.join(app.instance_path, "book.db") # 3) Build an absolute path to instance/book.db (works on Windows)
 app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}"
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -22,8 +23,9 @@ with app.app_context():
 
 @app.route("/")
 def index() -> str:
-    books: list[Book] = Book.query.order_by(Book.id.desc()).all()
-    return render_template("index.html", book_list=books)
+    books: list[Book] = Book.query.order_by(Book.id.desc()).limit(6).all()
+    random_book: Book | None = Book.query.order_by(func.random()).first()
+    return render_template("index.html", book_list=books, random_book=random_book)
 
 
 @app.route("/books")
@@ -75,7 +77,6 @@ def add_book() -> Response | str:
             db.session.commit()
             flash(f'Book "{title}" has been added!', "success")
         return redirect(url_for("add_book"))
-
     return render_template("add.html")
 
 
