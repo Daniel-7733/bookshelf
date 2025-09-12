@@ -2,3 +2,4 @@ flask
 sqlite3
 sqlalchemy
 flask_sqlalchemy
+flask_login

@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, flash, redirect, url_for, Response 
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from flask import Flask, render_template, request, flash, redirect, url_for, Response
+from models import Book, User
 from os import path, makedirs
 from sqlalchemy import func
-from models import Book
 from db import db
 
 
@@ -11,8 +12,15 @@ app.config["SECRET_KEY"] = "dev-secret"
 makedirs(app.instance_path, exist_ok=True) # 2) Ensure the instance folder exists (important!)
 db_path: str = path.join(app.instance_path, "book.db") # 3) Build an absolute path to instance/book.db (works on Windows)
 app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}"
-
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+
+login_manager: LoginManager = LoginManager(app)
+login_manager.login_view = "login"   # if blocked, redirect here
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 # initialize db with this app
 db.init_app(app)
