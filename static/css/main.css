@@ -140,4 +140,10 @@ p {
   border-radius: 5px;
 }
 
-
+/* Responsive adjustments for small screens */
+@media (max-width: 600px) {
+    .login-form {
+        margin: 20px;
+        width: 100%;
+    }
+}
