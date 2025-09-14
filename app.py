@@ -29,11 +29,17 @@ with app.app_context():
     db.create_all()
 
 
+# ----------------------- Routes ----------------------- #
 @app.route("/")
 def index() -> str:
+    return render_template("index.htm")
+
+
+@app.route("/home")
+def home() -> str:
     books: list[Book] = Book.query.order_by(Book.id.desc()).limit(6).all()
     random_book: Book | None = Book.query.order_by(func.random()).first()
-    return render_template("index.html", book_list=books, random_book=random_book)
+    return render_template("home.html", book_list=books, random_book=random_book)
 
 
 @app.route("/books")
@@ -86,6 +92,10 @@ def add_book() -> Response | str:
             flash(f'Book "{title}" has been added!', "success")
         return redirect(url_for("add_book"))
     return render_template("add.html")
+
+
+# ----------------------- login/logout ----------------------- #
+
 
 
 if __name__ == "__main__":
