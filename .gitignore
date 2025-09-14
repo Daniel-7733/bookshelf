@@ -5,17 +5,52 @@ __pycache__/
 *.pyd
 *.sqlite3
 
-# Envs
+# Environments
 .venv/
 env/
 venv/
+env.bak/
+*.env
 
-# IDE
+# IDEs and Editors
 .idea/
 .vscode/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
 
-# OS
+# OS Files
 .DS_Store
 Thumbs.db
 ehthumbs.db
-.db
+*.bak
+*.swp
+
+# Flask / Django
+instance/
+.webassets-cache/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Logs and Databases
+*.log
+*.sql
+*.sqlite
+*.sqlite3
+
+# Coverage
+.coverage
+.coverage.*
+*.cover
+*.tox/
+
+# Pytest
+.cache/
+
+# mypy
+.mypy_cache/
+
+# Pyre
+.pyre/
