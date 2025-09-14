@@ -10,6 +10,7 @@ class User(UserMixin, db.Model):
 
     id: int = db.Column(db.Integer, primary_key=True)
     name: str = db.Column(db.String(100), nullable=False)
+    username: str = db.Column(db.String(100), unique=True, nullable=False, index=True)
     email: str = db.Column(db.String(200), unique=True, nullable=False, index=True)
     password_hash: str = db.Column(db.String(256), nullable=False)
     created_at: datetime = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
