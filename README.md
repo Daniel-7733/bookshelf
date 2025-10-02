@@ -101,4 +101,6 @@ http://127.0.0.1:5000/home
 
 ---
 
-⚡ This project helped me practice Flask, authentication, and building CRUD apps with a clean structure.
+⚡ This project was to practice Flask, authentication, and building CRUD apps with a clean structure.
+👨‍💻 Created as a practice project to learn Python and GitHub.
+Built with by Daniel
